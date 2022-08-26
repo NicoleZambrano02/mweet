@@ -30,7 +30,7 @@ const SideNav = () => {
         firstName: userData?.firstName,
         lastName: userData?.lastName,
         email: userData?.email,
-        username: userData?.username,
+        username: userData?.username ? userData?.username : null,
         photoURL: userData?.photoURL,
       });
     };

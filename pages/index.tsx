@@ -24,10 +24,14 @@ const Index = () => {
 
   useEffect(() => {
     const getUserData = async () => {
-      const data: any = await getCurrentUser(uid);
+      const data = await getCurrentUser(uid);
       setUserData({
         uid: uid,
-        ...data,
+        firstName: data?.firstName,
+        lastName: data?.lastName,
+        email: data?.email,
+        username: data?.username ? data?.username : null,
+        photoURL: data?.photoURL,
       });
     };
     getUserData();
@@ -35,7 +39,7 @@ const Index = () => {
 
   const [loading, setLoading] = useState(false);
 
-  let mweetValues: any = {
+  let mweetValues: object = {
     message: "",
   };
 
@@ -57,6 +61,7 @@ const Index = () => {
       reset();
     } catch (e) {
       toast.error("An error has ocurred. Try again.");
+      console.log("dad", e);
     } finally {
       setLoading(false);
     }

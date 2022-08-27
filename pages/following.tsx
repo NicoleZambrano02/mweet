@@ -16,7 +16,7 @@ const Following = () => {
       const data = await getFollowedUsers(defaultValues.uid);
       setUsersData(data);
     };
-    getUsers();
+    getUsers().catch(console.error);
   }, [usersData]);
 
   const removeItemOnce = (arr: any, value: any) => {

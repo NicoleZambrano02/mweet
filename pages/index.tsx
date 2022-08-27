@@ -9,6 +9,10 @@ import { getCurrentUser } from "../firebase/data/users";
 import UsersToFollow from "../components/UsersToFollow";
 import { User } from "../types/User";
 
+type MweetValues = {
+  message: string;
+};
+
 const Index = () => {
   const { user } = useFirebaseAuth();
   const uid = user?.uid;
@@ -37,17 +41,15 @@ const Index = () => {
         following: data?.following ? data?.following : null,
       });
     };
-    getUserData();
+    getUserData().catch(console.error);
   }, [userData]);
 
   const [loading, setLoading] = useState(false);
 
-  let mweetValues: object = {
-    message: "",
-  };
-
-  const { register, handleSubmit, reset } = useForm<FormData>({
-    defaultValues: mweetValues,
+  const { register, handleSubmit, reset } = useForm<MweetValues>({
+    defaultValues: {
+      message: "",
+    },
   });
 
   const onSendMtweet = async (values: any) => {

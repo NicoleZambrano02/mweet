@@ -37,7 +37,7 @@ const SideNav = () => {
         following: userData?.following ? userData.following : null,
       });
     };
-    getUserData();
+    getUserData().catch(console.error);
   }, [defaultValues]);
 
   const switchOption = async (value: string) => {

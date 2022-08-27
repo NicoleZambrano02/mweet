@@ -7,19 +7,21 @@ import { setMweet } from "../firebase/data/mweet";
 import MweetsList from "../components/MweetsList";
 import { getCurrentUser } from "../firebase/data/users";
 import UsersToFollow from "../components/UsersToFollow";
+import { User } from "../types/User";
 
 const Index = () => {
   const { user } = useFirebaseAuth();
   const uid = user?.uid;
   const photo: any = user?.photoURL ? user?.photoURL : "/noPhoto.png";
 
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<User>({
     uid: uid,
     firstName: "",
     lastName: "",
     email: "",
     username: "",
     photoURL: "",
+    following: [],
   });
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Index = () => {
         email: data?.email,
         username: data?.username ? data?.username : null,
         photoURL: data?.photoURL ? data?.photoURL : null,
+        following: data?.following ? data?.following : null,
       });
     };
     getUserData();
@@ -121,7 +124,7 @@ const Index = () => {
         </form>
         <MweetsList />
       </div>
-      <UsersToFollow />
+      <UsersToFollow userData={userData} />
       <Toaster />
     </div>
   );

@@ -6,6 +6,7 @@ import useFirebaseAuth from "../firebase/config/UseAuth";
 import { useRouter } from "next/router";
 import Routes from "../utils/Routes";
 import { getCurrentUser } from "../firebase/data/users";
+import { User } from "../types/User";
 
 const SideNav = () => {
   const { user } = useFirebaseAuth();
@@ -13,13 +14,14 @@ const SideNav = () => {
   const router = useRouter();
   const photo: any = user?.photoURL ? user?.photoURL : "/noPhoto.png";
 
-  const [defaultValues, setDefaultValues] = useState({
+  const [defaultValues, setDefaultValues] = useState<User>({
     uid: uid,
     firstName: "",
     lastName: "",
     email: "",
     username: "",
     photoURL: "",
+    following: [],
   });
 
   useEffect(() => {
@@ -27,11 +29,12 @@ const SideNav = () => {
       const userData = await getCurrentUser(uid);
       setDefaultValues({
         uid: uid,
-        firstName: userData?.firstName,
-        lastName: userData?.lastName,
+        firstName: userData?.firstName ? userData.firstName : "",
+        lastName: userData?.lastName ? userData.lastName : "",
         email: userData?.email,
-        username: userData?.username ? userData?.username : null,
-        photoURL: userData?.photoURL ? userData?.photoURL : null,
+        username: userData?.username ? userData.username : null,
+        photoURL: userData?.photoURL ? userData.photoURL : null,
+        following: userData?.following ? userData.following : null,
       });
     };
     getUserData();
@@ -40,7 +43,12 @@ const SideNav = () => {
   const switchOption = async (value: string) => {
     switch (value) {
       case "FOLLOWING":
-        await router.push(Routes.INDEX);
+        await router.push({
+          pathname: Routes.FOLLOWING,
+          query: {
+            ...defaultValues,
+          },
+        });
         break;
 
       case "PROFILE":

@@ -1,8 +1,9 @@
-export default interface User {
+export type User = {
+  uid: any;
   email: string;
   firstName: string;
   lastName: string;
-  emailVerified: string;
   username: string | null;
-  photoURL: string;
-}
+  photoURL: string | null;
+  following: Array<any> | null;
+};

@@ -5,6 +5,7 @@ const publicRoutes = {
 const privateRoutes = {
   INDEX: "/",
   PROFILE: "/profile",
+  FOLLOWING: "/following",
 };
 
 const Routes = {

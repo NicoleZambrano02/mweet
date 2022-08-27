@@ -1,8 +1,9 @@
+import React from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { authentication } from "./index";
 import { useRouter } from "next/router";
-import React from "react";
 import Routes from "../../utils/Routes";
+import Image from "next/image";
 import { setUsers } from "../data/users";
 const provider = new GoogleAuthProvider();
 
@@ -18,7 +19,7 @@ const LoginWithGoogleUser = () => {
         firstName: fullName![0],
         lastName: fullName![1],
         email: userLogged.email,
-        photoURL: userLogged?.photoURL,
+        photoURL: userLogged?.photoURL ? userLogged?.photoURL : null,
         emailVerified: userLogged?.emailVerified,
       };
       await setUsers(userLogged.uid, userDataToSend);
@@ -30,9 +31,13 @@ const LoginWithGoogleUser = () => {
   };
 
   return (
-    <>
-      <button onClick={handleLogin}> Google </button>
-    </>
+    <button
+      className="border-1 border-gray4 rounded-6 text-center items-center text-gray3 py-buttonPY px-10 w-auto text-14 flex flex-row"
+      onClick={handleLogin}
+    >
+      <Image src="/logos/google.png" width={20} height={20} />
+      Sign In with Google
+    </button>
   );
 };
 export default LoginWithGoogleUser;

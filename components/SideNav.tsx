@@ -11,7 +11,7 @@ const SideNav = () => {
   const { user } = useFirebaseAuth();
   const uid = user?.uid;
   const router = useRouter();
-  const photo = user ? user.photoURL! : "/vercel.svg";
+  const photo: any = user?.photoURL ? user?.photoURL : "/noPhoto.png";
 
   const [defaultValues, setDefaultValues] = useState({
     uid: uid,
@@ -31,7 +31,7 @@ const SideNav = () => {
         lastName: userData?.lastName,
         email: userData?.email,
         username: userData?.username ? userData?.username : null,
-        photoURL: userData?.photoURL,
+        photoURL: userData?.photoURL ? userData?.photoURL : null,
       });
     };
     getUserData();
@@ -63,7 +63,7 @@ const SideNav = () => {
   };
 
   return (
-    <div className="w-20 h-full shadow-md bg-gray">
+    <div className="w-20 h-full shadow-md bg-gray absolute">
       <ul className="relative px-1">
         <li className="relative">
           <button
@@ -112,7 +112,7 @@ const SideNav = () => {
             </div>
             <div className="grow ml-3">
               <p className="text-sm font-semibold text-blue-600">
-                Jason McCoel
+                {defaultValues.firstName + " " + defaultValues.lastName}
               </p>
             </div>
           </div>

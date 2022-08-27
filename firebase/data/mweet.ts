@@ -1,4 +1,4 @@
-import { onValue, push, ref, set } from "firebase/database";
+import { onValue, push, ref } from "firebase/database";
 import { db } from "../config";
 import moment from "moment";
 
@@ -19,7 +19,16 @@ export const getAllMweets = async () => {
       data.push({
         key: mweet.key,
         createdAt: moment(mweet.val().createdAt).format("MMM DD, YYYY"),
-        user: mweet.val().user,
+        user: {
+          firstName: mweet.val().user.firstName,
+          lastName: mweet.val().user.lastName,
+          username: mweet.val().user.username
+            ? mweet.val().user.username
+            : null,
+          photoURL: mweet.val().user.photoURL
+            ? mweet.val().user.photoURL
+            : "/noPhoto.png",
+        },
         message: mweet.val().message,
       });
     });

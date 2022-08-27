@@ -13,8 +13,8 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   return (
     <div>
       <Head>
-        <title>MWEETER</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>mweeter</title>
+        <link rel="icon" href="/logos/twitter.png" />
       </Head>
       <div className="flex flex-row gap-12">
         {Component.mustHaveAuth && <SideNav />}

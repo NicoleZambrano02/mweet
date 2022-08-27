@@ -26,16 +26,15 @@ const MweetsList = () => {
                 className="rounded-full"
               />
             </div>
-            <div className="flex flex-col">
-              <div className="text-14 flex flex-row gap-2">
-                <p>
+            <div className="flex flex-col text-14">
+              <div className="flex flex-row gap-2">
+                <p className="text-blue3">
                   {mweetData.user.firstName + " " + mweetData.user.lastName}
                 </p>
                 <p className="text-gray2">{mweetData.user.username}</p>
                 <li className="text-gray2">{mweetData.createdAt}</li>
               </div>
-
-              <p>{mweetData.message}</p>
+              <p className="text-gray2">{mweetData.message}</p>
             </div>
           </div>
         ))}

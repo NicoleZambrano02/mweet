@@ -1,5 +1,4 @@
 import { onValue, ref, set, update } from "firebase/database";
-
 import { db } from "../config";
 
 export const getCurrentUser = async (id: any) => {
@@ -7,6 +6,25 @@ export const getCurrentUser = async (id: any) => {
   let data: any;
   onValue(users, (snapshot) => {
     data = snapshot.val();
+  });
+  return data;
+};
+
+export const getUsersToFollow = async (id: any) => {
+  const users: any = ref(db, `/users/`);
+  let data: any = [];
+  onValue(users, (snapshot) => {
+    snapshot.forEach((user) => {
+      if (id !== user.key) {
+        data.push({
+          key: user.key,
+          firstName: user.val().firstName,
+          lastName: user.val().lastName,
+          username: user.val().username ? user.val().username : null,
+          photoURL: user.val().photoURL ? user.val().photoURL : "/noPhoto.png",
+        });
+      }
+    });
   });
   return data;
 };

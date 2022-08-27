@@ -11,7 +11,7 @@ import UsersToFollow from "../components/UsersToFollow";
 const Index = () => {
   const { user } = useFirebaseAuth();
   const uid = user?.uid;
-  const photo = user ? user.photoURL! : "/vercel.svg";
+  const photo: any = user?.photoURL ? user?.photoURL : "/noPhoto.png";
 
   const [userData, setUserData] = useState({
     uid: uid,
@@ -31,7 +31,7 @@ const Index = () => {
         lastName: data?.lastName,
         email: data?.email,
         username: data?.username ? data?.username : null,
-        photoURL: data?.photoURL,
+        photoURL: data?.photoURL ? data?.photoURL : null,
       });
     };
     getUserData();
@@ -68,10 +68,10 @@ const Index = () => {
   };
 
   return (
-    <div className="py-40 w-full flex flex-row gap-40">
+    <div className="py-40 w-full flex flex-row gap-40 ml-25">
       <div className="w-50">
+        <p className="font-bold text-24 text-blue">Your Feed</p>
         <form onSubmit={handleSubmit(onSendMtweet)}>
-          <p className="font-bold text-24">Your Feed</p>
           <div className="py-2 flex flex-row pt-8">
             <div className="pr-2">
               <Image

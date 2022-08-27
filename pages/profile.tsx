@@ -45,51 +45,52 @@ const Profile = () => {
   };
 
   return (
-    <div className="py-40 w-full">
+    <div className="py-40 w-full ml-25">
       <div className="w-40">
-        <p className="font-bold text-24">Your Profile</p>
+        <p className="font-bold text-24 text-blue">Your Profile</p>
         <form className="pt-30" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col">
-              <label className="text-14">First name</label>
+              <label className="text-14 text-blue2">First name</label>
               <input
                 type="text"
-                className="text-14 border-2 border-gray rounded-6 py-9 px-13"
+                className="text-14 text-gray2 border-1 border-gray4 rounded-6 py-9 px-13"
                 required
                 {...register("firstName")}
               />
               {errors.firstName && <span>This field is required</span>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="last_name" className="text-14">
+              <label htmlFor="last_name" className="text-14 text-blue2">
                 Last name
               </label>
               <input
                 type="text"
-                className="text-14 border-2 border-gray rounded-6 py-9 px-13"
+                className="text-14 text-gray2 border-1 border-gray4 rounded-6 py-9 px-13"
                 required
                 {...register("lastName")}
               />
             </div>
           </div>
           <div className="flex flex-col pt-24">
-            <label htmlFor="username" className="text-14">
+            <label htmlFor="username" className="text-14 text-blue2">
               Your handle (username)
             </label>
             <input
               type="text"
-              className="text-14 border-2 border-gray rounded-6 py-9 px-13"
+              className="text-14 text-gray2 border-1 border-gray4 rounded-6 py-9 px-13"
               {...register("username")}
             />
           </div>
           <div className="flex flex-col pt-24">
-            <label htmlFor="username" className="text-14">
+            <label htmlFor="username" className="text-14 text-blue2">
               Email address
             </label>
             <input
               type="email"
-              className="text-14 border-2 border-gray rounded-6 py-9 px-13"
+              className="text-14 text-gray2 border-1 border-gray4 bg-gray6 rounded-6 py-9 px-13"
               required
+              disabled
               {...register("email")}
             />
           </div>
@@ -111,7 +112,6 @@ const Profile = () => {
                     cy="12"
                     r="10"
                     stroke="currentColor"
-                    stroke-width="4"
                   />
                   <path
                     className="opacity-75"

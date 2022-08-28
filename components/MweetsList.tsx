@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { getAllMweets } from "../firebase/data/mweet";
 
-const MweetsList = () => {
+type MweetsListProps = {
+  userData: any;
+};
+
+const MweetsList = ({ userData }: MweetsListProps) => {
   let [mweets, setMweets] = useState([]);
 
   useEffect(() => {
     const getMweets = async () => {
-      const data = await getAllMweets();
+      const data = await getAllMweets(userData);
       setMweets(data);
     };
     getMweets();
@@ -28,7 +32,7 @@ const MweetsList = () => {
             </div>
             <div className="flex flex-col text-14">
               <div className="flex flex-row gap-2">
-                <p className="text-blue3">
+                <p className="text-blue3 font-semibold">
                   {mweetData.user.firstName + " " + mweetData.user.lastName}
                 </p>
                 <p className="text-gray2">{mweetData.user.username}</p>

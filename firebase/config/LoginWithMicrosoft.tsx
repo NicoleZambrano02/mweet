@@ -33,7 +33,7 @@ const LoginWithMicrosoft = () => {
 
   return (
     <button
-      className="border-1 border-gray4 rounded-6 text-center items-center text-gray3 py-buttonPY px-10 w-auto text-14 flex flex-row"
+      className="border-1 border-gray4 rounded-6 text-center items-center text-gray3 py-buttonPY w-auto text-14 flex flex-row gap-2"
       onClick={handleLogin}
     >
       <Image src="/logos/microsoft.png" width={20} height={20} />

@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 import Routes from "../utils/Routes";
 import useFirebaseAuth from "../firebase/config/UseAuth";
 
-const WithAuth = ({ children, mustHaveAuth }) => {
+type WithAuthProps = {
+  children: any;
+  mustHaveAuth: any;
+};
+
+const WithAuth = ({ children, mustHaveAuth }: WithAuthProps) => {
   const { user, loading } = useFirebaseAuth();
   const hasAuth = !!user;
   const router = useRouter();

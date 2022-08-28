@@ -1,4 +1,4 @@
-import { onValue, ref, set, update } from "firebase/database";
+import { onValue, ref, set, update, get } from "firebase/database";
 import { db } from "../config";
 
 export const getCurrentUser = async (id: any) => {
@@ -10,8 +10,12 @@ export const getCurrentUser = async (id: any) => {
   return data;
 };
 
-export const setUsers = (id: any, data: object) => {
-  return set(ref(db, `/users/` + id), { ...data });
+export const setUsers = async (id: any, data: object) => {
+  const users: any = ref(db, `/users/` + id);
+  const snapshot = await get(users);
+  if (!snapshot.exists()) {
+    return set(ref(db, `/users/` + id), { ...data });
+  }
 };
 
 export const updateCurrentUser = async (id: any, data: any) => {
@@ -22,11 +26,12 @@ export const getUsersToFollow = async (id: any) => {
   const users: any = ref(db, `/users/`);
   let data: any = [];
   onValue(users, (snapshot) => {
+    data = [];
     snapshot.forEach((user) => {
       if (id !== user.key) {
         const followedBy = user.val().followedBy ? user.val().followedBy : null;
         if (followedBy) {
-          if (followedBy.indexOf(user.key) > -1) {
+          if (followedBy.indexOf(id) === -1) {
             data.push({
               key: user.key,
               firstName: user.val().firstName,
@@ -59,11 +64,12 @@ export const getFollowedUsers = async (id: any) => {
   const users: any = ref(db, `/users/`);
   let data: any = [];
   onValue(users, (snapshot) => {
+    data = [];
     snapshot.forEach((user) => {
       if (id !== user.key) {
         const followedBy = user.val().followedBy ? user.val().followedBy : null;
         if (followedBy) {
-          if (followedBy.indexOf(user.key) === -1) {
+          if (followedBy.indexOf(id) > -1) {
             data.push({
               key: user.key,
               firstName: user.val().firstName,

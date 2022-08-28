@@ -18,19 +18,19 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
       setUsersData(usersToFollow);
     };
     getUsers().catch(console.error);
-  }, [usersData]);
+  }, [userData.uid, usersData]);
 
   const follow = async (id: string, followedBy: any) => {
     setLoading(true);
-    const followedByToSend = {
-      followedBy: followedBy ? [...followedBy, userData.uid] : [userData.uid],
-    };
-    const following = {
-      following: userData.following ? [...userData.following, id] : [id],
-    };
     try {
-      await updateCurrentUser(id, followedByToSend);
+      const following = {
+        following: userData.following ? [...userData.following, id] : [id],
+      };
       await updateCurrentUser(userData.uid, following);
+      const followedByToSend = {
+        followedBy: followedBy ? [...followedBy, userData.uid] : [userData.uid],
+      };
+      await updateCurrentUser(id, followedByToSend);
       toast.success("User followed!");
     } catch (e) {
       toast.error("An error has occured. Try again");
@@ -56,7 +56,9 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
                 />
               </div>
               <div className="text-14 flex flex-col w-50">
-                <p>{users.firstName + " " + users.lastName}</p>
+                <p className="font-semibold">
+                  {users.firstName + " " + users.lastName}
+                </p>
                 <p className="text-gray2">{users.username}</p>
               </div>
               <button

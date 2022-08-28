@@ -17,47 +17,50 @@ const Following = () => {
       setUsersData(data);
     };
     getUsers().catch(console.error);
-  }, [usersData]);
+  }, [defaultValues.uid, usersData]);
 
   const removeItemOnce = (arr: any, value: any) => {
     let index = arr.indexOf(value);
     if (index > -1) {
-      arr.splice(index, 1);
+      if (typeof arr !== "string") {
+        arr.splice(index, 1);
+      }
     }
     return arr;
   };
 
   const unfollow = async (id: any, followedBy: any) => {
     setLoading(true);
-    const removedFollowedBy = await removeItemOnce(
-      followedBy,
-      defaultValues.uid
-    );
-    const followedByToSend = { followedBy: removedFollowedBy };
-
-    const usersFollowed: any = defaultValues.following!;
-    const removedUserFollowed = await removeItemOnce(usersFollowed, id);
-    const followingToSend = { following: removedUserFollowed };
-
     try {
-      await updateCurrentUser(id, followedByToSend);
+      const usersFollowed = defaultValues.following;
+      const removedUserFollowed = await removeItemOnce(usersFollowed, id);
+      const followingToSend = {
+        following: removedUserFollowed,
+      };
       await updateCurrentUser(defaultValues.uid, followingToSend);
+      const removedFollowedBy = await removeItemOnce(
+        followedBy,
+        defaultValues.uid
+      );
+      const followedByToSend = { followedBy: removedFollowedBy };
+      await updateCurrentUser(id, followedByToSend);
       toast.success("User unfollowed!");
     } catch (e) {
       toast.error("An error has occured. Try again");
+      console.log("ada", e);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="py-40 w-50 ml-25">
+    <div className="py-40 w-40 ml-25">
       <p className="font-bold text-24 text-blue">People you follow</p>
-      <div className="flex flex-row gap-10">
+      <div className="flex flex-row">
         {usersData.length > 0 ? (
           usersData.map((users: any) => (
             <div key={users.key} className="w-50">
-              <hr className="text-gray5 my-4 mx-2" />
+              <hr className="text-gray5 my-4" />
               <div className=" flex flex-row items-center gap-2">
                 <div className="pr-2 w-20">
                   <Image
@@ -67,8 +70,10 @@ const Following = () => {
                     className="rounded-full"
                   />
                 </div>
-                <div className="text-14 flex flex-col w-50">
-                  <p>{users.firstName + " " + users.lastName}</p>
+                <div className="text-14 flex flex-col w-65">
+                  <p className="font-semibold">
+                    {users.firstName + " " + users.lastName}
+                  </p>
                   <p className="text-gray2">{users.username}</p>
                 </div>
                 <button

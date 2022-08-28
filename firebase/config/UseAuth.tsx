@@ -11,7 +11,6 @@ const useFirebaseAuth = () => {
 
   const handleLogout = async () => {
     await signOut(authentication);
-    console.log("signed out!!");
     await router.push(Routes.LOGIN);
   };
 

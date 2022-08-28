@@ -7,6 +7,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.8",
     "@heroicons/vue": "^2.0.8",
     "firebase": "^9.9.3",
     "husky": "^8.0.1",

@@ -7,6 +7,12 @@ import { useRouter } from "next/router";
 import Routes from "../utils/Routes";
 import { getCurrentUser } from "../firebase/data/users";
 import { User } from "../types/User";
+import {
+  HomeIcon,
+  HandThumbUpIcon,
+  FaceSmileIcon,
+  ArrowLeftOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 
 const SideNav = () => {
   const { user } = useFirebaseAuth();
@@ -75,38 +81,42 @@ const SideNav = () => {
       <ul className="relative px-1">
         <li className="relative">
           <button
-            className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
+            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
             onClick={() => switchOption("HOME")}
           >
-            <span>Home</span>
+            <HomeIcon className="h-5 w-5 text-icons" />
+            Home
           </button>
         </li>
         <li className="relative" id="sidenavSecEx2">
           <button
-            className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
+            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
             onClick={() => switchOption("FOLLOWING")}
           >
-            <span>Following</span>
+            <HandThumbUpIcon className="h-5 w-5 text-icons" />
+            Following
           </button>
         </li>
         <li className="relative" id="sidenavSecEx2">
           <button
-            className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
+            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
             onClick={() => switchOption("PROFILE")}
           >
-            <span>Profile</span>
+            <FaceSmileIcon className="h-5 w-5 text-icons" />
+            Profile
           </button>
         </li>
         <li className="relative" id="sidenavSecEx2">
           <button
-            className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
+            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
             onClick={handleLogout}
           >
-            <span>Log out</span>
+            <ArrowLeftOnRectangleIcon className="h-5 w-5 text-icons" />
+            Log out
           </button>
         </li>
       </ul>
-      <hr className="m-4" />
+      <hr className="m-4 text-icons" />
       <div className="pt-4 pb-2 px-6">
         <a>
           <div className="flex items-center">
@@ -119,7 +129,7 @@ const SideNav = () => {
               />
             </div>
             <div className="grow ml-3">
-              <p className="text-sm font-semibold text-blue-600">
+              <p className="text-sm font-semibold text-blue2">
                 {defaultValues.firstName + " " + defaultValues.lastName}
               </p>
             </div>

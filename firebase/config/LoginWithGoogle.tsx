@@ -32,7 +32,7 @@ const LoginWithGoogleUser = () => {
 
   return (
     <button
-      className="border-1 border-gray4 rounded-6 text-center items-center text-gray3 py-buttonPY px-10 w-auto text-14 flex flex-row"
+      className="border-1 border-gray4 rounded-6 text-center items-center py-buttonPY text-gray3 text-14 flex flex-row gap-2"
       onClick={handleLogin}
     >
       <Image src="/logos/google.png" width={20} height={20} />

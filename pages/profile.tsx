@@ -51,7 +51,9 @@ const Profile = () => {
         <form className="pt-30" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col">
-              <label className="text-14 text-blue2">First name</label>
+              <label className="text-14 text-blue2 font-semibold">
+                First name
+              </label>
               <input
                 type="text"
                 className="text-14 text-gray2 border-1 border-gray4 rounded-6 py-9 px-13"
@@ -61,7 +63,7 @@ const Profile = () => {
               {errors.firstName && <span>This field is required</span>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="last_name" className="text-14 text-blue2">
+              <label className="text-14 text-blue2 font-semibold">
                 Last name
               </label>
               <input
@@ -73,7 +75,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex flex-col pt-24">
-            <label htmlFor="username" className="text-14 text-blue2">
+            <label className="text-14 text-blue2 font-semibold">
               Your handle (username)
             </label>
             <input
@@ -83,7 +85,7 @@ const Profile = () => {
             />
           </div>
           <div className="flex flex-col pt-24">
-            <label htmlFor="username" className="text-14 text-blue2">
+            <label className="text-14 text-blue2 font-semibold">
               Email address
             </label>
             <input

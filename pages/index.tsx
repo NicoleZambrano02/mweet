@@ -94,9 +94,9 @@ const Index = () => {
               {...register("message")}
             />
           </div>
-          <div className="justify-self-end text-right pt-18">
+          <div className="flex justify-end text-right pt-18 ">
             <button
-              className="bg-button rounded-6 text-center text-white py-buttonPY w-button text-14 flex flex-row justify-center items-center"
+              className=" bg-button rounded-6 text-center text-white py-buttonPY w-button text-14 flex flex-row justify-center items-center"
               type="submit"
             >
               {loading && (
@@ -120,11 +120,11 @@ const Index = () => {
                   />
                 </svg>
               )}
-              Update info
+              Send mweet
             </button>
           </div>
         </form>
-        <MweetsList />
+        <MweetsList userData={userData} />
       </div>
       <UsersToFollow userData={userData} />
       <Toaster />

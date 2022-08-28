@@ -33,6 +33,7 @@ export const getAllMweets = async (userData: any) => {
       }
     });
   });
+  data.reverse();
   return data;
 };
 

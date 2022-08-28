@@ -17,11 +17,7 @@ const Profile = () => {
   const defaultValues = router.query;
   const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { register, handleSubmit } = useForm<FormData>({
     defaultValues: defaultValues,
   });
 
@@ -45,7 +41,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="py-40 w-full ml-25">
+    <div className="py-40 w-full ml-20">
       <div className="w-40">
         <p className="font-bold text-24 text-blue">Your Profile</p>
         <form className="pt-30" onSubmit={handleSubmit(onSubmit)}>
@@ -60,7 +56,6 @@ const Profile = () => {
                 required
                 {...register("firstName")}
               />
-              {errors.firstName && <span>This field is required</span>}
             </div>
             <div className="flex flex-col">
               <label className="text-14 text-blue2 font-semibold">

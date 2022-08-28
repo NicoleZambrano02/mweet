@@ -52,31 +52,29 @@ const Index = () => {
     },
   });
 
-  const onSendMtweet = async (values: any) => {
+  const onSendMweet = async (values: any) => {
     setLoading(true);
     const dataToSend = {
       message: values.message,
       user: { ...userData },
       createdAt: new Date().getTime(),
     };
-
     try {
       await setMweet(dataToSend);
       toast.success("Mweet published!");
       reset();
     } catch (e) {
       toast.error("An error has ocurred. Try again.");
-      console.log("dad", e);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="py-40 w-full flex flex-row gap-40 ml-25">
+    <div className="py-40 w-full flex flex-row gap-40 ml-20">
       <div className="w-50">
         <p className="font-bold text-24 text-blue">Your Feed</p>
-        <form onSubmit={handleSubmit(onSendMtweet)}>
+        <form onSubmit={handleSubmit(onSendMweet)}>
           <div className="py-2 flex flex-row pt-8">
             <div className="pr-2">
               <Image
@@ -90,7 +88,7 @@ const Index = () => {
               placeholder="What´s on your mind..."
               maxLength={280}
               required
-              className="block text-14 p-4 w-full text-black rounded-lg border-2 border-gray"
+              className="block text-14 p-4 w-full text-black rounded-lg border-2 border-gray font-inter"
               {...register("message")}
             />
           </div>

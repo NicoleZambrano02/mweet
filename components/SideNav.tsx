@@ -77,38 +77,39 @@ const SideNav = () => {
   };
 
   return (
-    <div className="w-20 h-full shadow-md bg-gray absolute">
-      <ul className="relative px-1">
-        <li className="relative">
+    <div className="w-15 h-full shadow-md bg-gray absolute">
+      <p className="pt-20 px-20 text-24 text-title font-semibold">mweeter</p>
+      <ul>
+        <li className="relative mx-5">
           <button
-            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
+            className="flex flex-row gap-2 w-full items-center text-sm py-4 px-2 h-12 text-gray7 font-semibold rounded-6 focus:bg-gray8 hover:bg-gray8"
             onClick={() => switchOption("HOME")}
           >
             <HomeIcon className="h-5 w-5 text-icons" />
             Home
           </button>
         </li>
-        <li className="relative" id="sidenavSecEx2">
+        <li className="relative mx-5">
           <button
-            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
+            className="flex flex-row gap-2 w-full items-center text-sm py-4 px-2 h-12 text-gray7 font-semibold rounded-6 focus:bg-gray8 hover:bg-gray8"
             onClick={() => switchOption("FOLLOWING")}
           >
             <HandThumbUpIcon className="h-5 w-5 text-icons" />
             Following
           </button>
         </li>
-        <li className="relative" id="sidenavSecEx2">
+        <li className="relative mx-5">
           <button
-            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
+            className="flex flex-row gap-2 w-full items-center text-sm py-4 px-2 h-12 text-gray7 font-semibold rounded-6 focus:bg-gray8 hover:bg-gray8"
             onClick={() => switchOption("PROFILE")}
           >
             <FaceSmileIcon className="h-5 w-5 text-icons" />
             Profile
           </button>
         </li>
-        <li className="relative" id="sidenavSecEx2">
+        <li className="relative mx-5">
           <button
-            className="flex flex-row gap-2 items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray7 font-semibold"
+            className="flex flex-row gap-2 w-full items-center text-sm py-4 px-2 h-12 text-gray7 font-semibold rounded-6 focus:bg-gray8 hover:bg-gray8"
             onClick={handleLogout}
           >
             <ArrowLeftOnRectangleIcon className="h-5 w-5 text-icons" />
@@ -116,25 +117,22 @@ const SideNav = () => {
           </button>
         </li>
       </ul>
-      <hr className="m-4 text-icons" />
-      <div className="pt-4 pb-2 px-6">
-        <a>
-          <div className="flex items-center">
-            <div className="shrink-0">
-              <Image
-                src={photo}
-                width={50}
-                height={50}
-                className="rounded-full w-10"
-              />
-            </div>
-            <div className="grow ml-3">
-              <p className="text-sm font-semibold text-blue2">
-                {defaultValues.firstName + " " + defaultValues.lastName}
-              </p>
-            </div>
-          </div>
-        </a>
+      <hr className="mx-6 my-divider text-icons" />
+      <div className="flex items-center px-20">
+        <div className="shrink-0">
+          <Image
+            src={photo}
+            width={30}
+            height={30}
+            className="rounded-full w-10"
+          />
+        </div>
+        <div className="grow ml-3">
+          <p className="text-14 font-semibold text-blue2">
+            {defaultValues.firstName + " " + defaultValues.lastName}
+          </p>
+          <p className="text-12 text-gray2">{defaultValues.username}</p>
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const Following = () => {
   const defaultValues = router.query;
 
   const [usersData, setUsersData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading]: any = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -30,7 +30,7 @@ const Following = () => {
   };
 
   const unfollow = async (id: any, followedBy: any) => {
-    setLoading(true);
+    loading[id] = true;
     try {
       const usersFollowed = defaultValues.following;
       const removedUserFollowed = await removeItemOnce(usersFollowed, id);
@@ -49,18 +49,18 @@ const Following = () => {
       toast.error("An error has occured. Try again");
       console.log("ada", e);
     } finally {
-      setLoading(false);
+      setLoading([]);
     }
   };
 
   return (
-    <div className="py-40 w-40 ml-25">
+    <div className="py-40 w-40 ml-20">
       <p className="font-bold text-24 text-blue">People you follow</p>
-      <div className="flex flex-row">
+      <div className="grid grid-cols-2 gap-8 mt-4">
         {usersData.length > 0 ? (
           usersData.map((users: any) => (
-            <div key={users.key} className="w-50">
-              <hr className="text-gray5 my-4" />
+            <div key={users.key}>
+              <hr className="text-gray5 mb-4" />
               <div className=" flex flex-row items-center gap-2">
                 <div className="pr-2 w-20">
                   <Image
@@ -78,9 +78,9 @@ const Following = () => {
                 </div>
                 <button
                   onClick={() => unfollow(users.key, users.followedBy)}
-                  className="w-auto border-1 border-gray4 text-blue2 text-14 px-8 rounded-full flex flex-row"
+                  className="w-auto border-1 border-gray4 text-blue2 text-14 px-8 rounded-full flex flex-row font-semibold"
                 >
-                  {loading && (
+                  {loading[users.key] && (
                     <svg
                       className="w-loading text-blue2 animate-spin mr-2"
                       xmlns="http://www.w3.org/2000/svg"

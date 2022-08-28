@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        title: "#2F80ED",
         gray: "#F3F4F6",
         gray2: "#6B7280",
         gray3: "#818D9F",
@@ -14,6 +15,7 @@ module.exports = {
         gray5: "#E5E7EB",
         gray6: "#F2F2F2",
         gray7: "#4B5563",
+        gray8: "#EBEDF1",
         icons: "#BDBDBD",
         button: "#6A73C5",
         blue: "#334155",
@@ -21,8 +23,7 @@ module.exports = {
         blue3: "#111827",
       },
       width: {
-        485: "485px",
-        button: "147px",
+        mweets: "5%",
         10: "10%",
         15: "15%",
         20: "20%",
@@ -31,8 +32,10 @@ module.exports = {
         60: "60%",
         65: "65%",
         70: "70%",
-        loading: "20px",
+        95: "95%",
         full: "100%",
+        button: "147px",
+        loading: "20px",
       },
       borderRadius: {
         6: "6px",
@@ -46,6 +49,7 @@ module.exports = {
         13: "13px",
         16: "16px",
         18: "18px",
+        20: "20px",
         24: "24px",
         25: "25px",
         29: "29px",
@@ -54,11 +58,14 @@ module.exports = {
         41: "41px",
       },
       margin: {
-        25: "25%",
+        divider: "18px",
+        20: "20%",
       },
       fontSize: {
+        12: "12px",
         14: "14px",
         18: "18px",
+        20: "20px",
         24: "24px",
       },
       borderWidth: {
@@ -66,5 +73,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-font-inter")],
 };

@@ -9,7 +9,7 @@ type UsersToFollowProps = {
 
 const UsersToFollow = ({ userData }: UsersToFollowProps) => {
   const [usersData, setUsersData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading]: any = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -21,7 +21,7 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
   }, [userData.uid, usersData]);
 
   const follow = async (id: string, followedBy: any) => {
-    setLoading(true);
+    loading[id] = true;
     try {
       const following = {
         following: userData.following ? [...userData.following, id] : [id],
@@ -35,7 +35,7 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
     } catch (e) {
       toast.error("An error has occured. Try again");
     } finally {
-      setLoading(false);
+      setLoading([]);
     }
   };
 
@@ -43,13 +43,13 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
     <div className="flex flex-col">
       <p className="text-18 text-blue font-bold pb-12">Follow others</p>
       {usersData.length > 0 ? (
-        usersData.map((users: any) => (
-          <div key={users.key}>
+        usersData.map((user: any) => (
+          <div key={user.key}>
             <hr className="text-gray5 my-4" />
             <div className=" flex flex-row items-center gap-2">
               <div className="pr-2 w-20">
                 <Image
-                  src={users.photoURL}
+                  src={user.photoURL}
                   width={35}
                   height={35}
                   className="rounded-full"
@@ -57,15 +57,15 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
               </div>
               <div className="text-14 flex flex-col w-50">
                 <p className="font-semibold">
-                  {users.firstName + " " + users.lastName}
+                  {user.firstName + " " + user.lastName}
                 </p>
-                <p className="text-gray2">{users.username}</p>
+                <p className="text-gray2">{user.username}</p>
               </div>
               <button
-                onClick={() => follow(users.key, users.followedBy)}
-                className="w-auto border-1 border-gray4 text-blue2 text-14 px-8 rounded-full flex flex-row"
+                onClick={() => follow(user.key, user.followedBy)}
+                className="w-auto border-1 border-gray4 text-blue2 text-14 px-8 rounded-full flex flex-row font-semibold"
               >
-                {loading && (
+                {loading[user.key] && (
                   <svg
                     className="w-loading text-blue2 animate-spin mr-2"
                     xmlns="http://www.w3.org/2000/svg"

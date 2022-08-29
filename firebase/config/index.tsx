@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDf9vBDbbrUkTVJ40LdAcIJp9-MxavSXJU",
-  authDomain: "mweeter-47639.firebaseapp.com",
-  projectId: "mweeter-47639",
-  storageBucket: "mweeter-47639.appspot.com",
-  messagingSenderId: "1098727936342",
-  appId: "1:1098727936342:web:6cf23a2348ff1f34e386f7",
-  measurementId: "G-6DJ70FB6EQ",
+  apiKey: "AIzaSyD9ZnvLhxmPgytmsEID_u_ibqTAq6pawAs",
+  authDomain: "mweeter-c926f.firebaseapp.com",
+  projectId: "mweeter-c926f",
+  storageBucket: "mweeter-c926f.appspot.com",
+  messagingSenderId: "705243851431",
+  appId: "1:705243851431:web:2b9d12b75ac0e382d3c982",
+  measurementId: "G-ZPVBC7KDL9",
 };
 
 const app = initializeApp(firebaseConfig);

@@ -3,16 +3,10 @@ import moment from "moment";
 import Image from "next/image";
 import { db } from "../firebase/config";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { updateCurrentUser } from "../firebase/data/users";
 import { User } from "../types/User";
 
 type MweetsListProps = {
   userData: User;
-};
-
-type UserData = {
-  id: string;
-  data: any;
 };
 
 type MweetsData = {
@@ -35,7 +29,7 @@ const MweetsList = ({ userData }: MweetsListProps) => {
       collection(db, "mweets"),
       orderBy("createdAt", "desc")
     );
-    let data: MweetsData[] = [];
+    let data: MweetsData[];
     const unsubscribe = onSnapshot(document, (querySnapshot) => {
       data = [];
       querySnapshot.forEach((mweet) => {
@@ -66,7 +60,7 @@ const MweetsList = ({ userData }: MweetsListProps) => {
       setMweets(data);
     });
     return () => unsubscribe();
-  }, [userData.uid, () => updateCurrentUser]);
+  }, [userData.uid, userData.following]);
 
   return (
     <div className="py-40 w-full">

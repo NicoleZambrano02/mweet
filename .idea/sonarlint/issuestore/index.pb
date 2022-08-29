@@ -1,6 +1,4 @@
 
-I
-firebase/config/index.tsx,1\9\1977baeec484fc4736ee7b6a070a77ccd340e3fe
 >
 types/User.tsx,4\7\478b5c424e20df114ec9613eaf82fa0e35f78c45
 >
@@ -19,8 +17,6 @@ G
 firebase/data/users.tsx,e\c\ec5b52c075bdb1b1e2f0548f5ce29168ce6d03d4
 C
 pages/following.tsx,a\9\a9a7d2dec18fb3fff76b7e5a058ffbfbf73c72db
-?
-pages/index.tsx,b\3\b3357635c26d1b52053382ce7e8a8640d31fedc8
 ?
 pages/login.tsx,b\9\b93fcc063d249bdf6f69fc21d2c1d92c294b3fa8
 A

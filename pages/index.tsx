@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
-import useFirebaseAuth from "../firebase/config/UseAuth";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { setMweet } from "../firebase/data/mweet";
+import { useForm } from "react-hook-form";
+import FillUsersData from "../components/FillUsersData";
 import MweetsList from "../components/MweetsList";
-import { getCurrentUser } from "../firebase/data/users";
 import UsersToFollow from "../components/UsersToFollow";
+import { db } from "../firebase/config";
+import { doc, onSnapshot } from "firebase/firestore";
+import { setMweet } from "../firebase/data/mweet";
+import useFirebaseAuth from "../firebase/config/UseAuth";
 import { User } from "../types/User";
+import { Mweets } from "../types/Mweets";
 
 type MweetValues = {
   message: string;
 };
 
+type UserData = {
+  id: string;
+  data: any;
+};
+
 const Index = () => {
   const { user } = useFirebaseAuth();
   const uid = user?.uid;
-  const photo: any = user?.photoURL ? user?.photoURL : "/noPhoto.png";
+  const photo: string = user?.photoURL ? user?.photoURL : "/noPhoto.png";
 
   const [userData, setUserData] = useState<User>({
     uid: uid,
@@ -29,20 +37,13 @@ const Index = () => {
   });
 
   useEffect(() => {
-    const getUserData = async () => {
-      const data = await getCurrentUser(uid);
-      setUserData({
-        uid: uid,
-        firstName: data?.firstName,
-        lastName: data?.lastName,
-        email: data?.email,
-        username: data?.username ? data?.username : null,
-        photoURL: data?.photoURL ? data?.photoURL : null,
-        following: data?.following ? data?.following : null,
-      });
-    };
-    getUserData().catch(console.error);
-  }, [userData]);
+    const document = doc(db, "users", `${uid}`);
+    const unsubscribe = onSnapshot(document, (data: UserData) => {
+      const filledData = FillUsersData(data);
+      setUserData({ ...filledData });
+    });
+    return () => unsubscribe();
+  }, [uid]);
 
   const [loading, setLoading] = useState(false);
 
@@ -52,11 +53,17 @@ const Index = () => {
     },
   });
 
-  const onSendMweet = async (values: any) => {
+  const onSendMweet = async (values: MweetValues) => {
     setLoading(true);
-    const dataToSend = {
+    const dataToSend: Mweets = {
       message: values.message,
-      user: { ...userData },
+      user: {
+        uid: userData.uid,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        username: userData.username,
+        photoURL: userData.photoURL,
+      },
       createdAt: new Date().getTime(),
     };
     try {

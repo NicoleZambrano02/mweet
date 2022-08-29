@@ -16,11 +16,9 @@ const useFirebaseAuth = () => {
 
   const authStateChangeHandler = async (authState: any) => {
     if (!authState) {
-      await router.push("/login");
       setAuthUser(null);
       setLoading(false);
     } else {
-      await router.push("/");
       setAuthUser(authState);
       setLoading(false);
     }

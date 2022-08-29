@@ -15,23 +15,23 @@ type FormData = {
 const Profile = () => {
   const router = useRouter();
   const defaultValues = router.query;
+  const uid = defaultValues.uid!.toString();
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: defaultValues,
   });
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: FormData) => {
     setLoading(true);
     const dataToSend = {
       firstName: values.firstName,
       lastName: values.lastName,
-      email: values.email,
-      username: values.username ? values.username : null,
+      username: values.username ? `@${values.username}` : null,
     };
 
     try {
-      await updateCurrentUser(values.uid, dataToSend);
+      await updateCurrentUser(uid, dataToSend);
       toast.success("User updated!");
     } catch (e) {
       toast.error("An error has ocurred. Try again.");

@@ -1,20 +1,20 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBLE7hdaHgUqvCZ11Nc7KSJRBkzvslwbfU",
-  authDomain: "mweeter-8934e.firebaseapp.com",
-  projectId: "mweeter-8934e",
-  storageBucket: "mweeter-8934e.appspot.com",
-  messagingSenderId: "930827104285",
-  appId: "1:930827104285:web:58252f3ebb5559aa6816f4",
-  measurementId: "G-KJ96R59KQL",
+  apiKey: "AIzaSyDf9vBDbbrUkTVJ40LdAcIJp9-MxavSXJU",
+  authDomain: "mweeter-47639.firebaseapp.com",
+  projectId: "mweeter-47639",
+  storageBucket: "mweeter-47639.appspot.com",
+  messagingSenderId: "1098727936342",
+  appId: "1:1098727936342:web:6cf23a2348ff1f34e386f7",
+  measurementId: "G-6DJ70FB6EQ",
 };
 
 const app = initializeApp(firebaseConfig);
 
 const authentication = getAuth();
-const db = getDatabase(app);
+const db = getFirestore(app);
 
 export { authentication, db };

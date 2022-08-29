@@ -1,89 +1,32 @@
-import { onValue, ref, set, update, get } from "firebase/database";
 import { db } from "../config";
+import {
+  arrayRemove,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
-export const getCurrentUser = async (id: any) => {
-  const users: any = ref(db, `/users/` + id);
-  let data: any;
-  onValue(users, (snapshot) => {
-    data = snapshot.val();
-  });
-  return data;
+type Data = {
+  email: any;
+  firstName: string;
+  lastName: string;
+  photoURL: string | null;
 };
 
-export const setUsers = async (id: any, data: object) => {
-  const users: any = ref(db, `/users/` + id);
-  const snapshot = await get(users);
-  if (!snapshot.exists()) {
-    return set(ref(db, `/users/` + id), { ...data });
-  }
+export const getUserById = async (id: string) => {
+  const document = await getDoc(doc(db, "users", id));
+  return !!document.exists();
 };
 
-export const updateCurrentUser = async (id: any, data: any) => {
-  return update(ref(db, `/users/` + id), { ...data });
+export const setUsers = (id: string, data: Data) => {
+  return setDoc(doc(db, "users", id), data);
 };
 
-export const getUsersToFollow = async (id: any) => {
-  const users: any = ref(db, `/users/`);
-  let data: any = [];
-  onValue(users, (snapshot) => {
-    data = [];
-    snapshot.forEach((user) => {
-      if (id !== user.key) {
-        const followedBy = user.val().followedBy ? user.val().followedBy : null;
-        if (followedBy) {
-          if (followedBy.indexOf(id) === -1) {
-            data.push({
-              key: user.key,
-              firstName: user.val().firstName,
-              lastName: user.val().lastName,
-              username: user.val().username ? user.val().username : null,
-              photoURL: user.val().photoURL
-                ? user.val().photoURL
-                : "/noPhoto.png",
-              followedBy: user.val().followedBy ? user.val().followedBy : null,
-            });
-          }
-        } else {
-          data.push({
-            key: user.key,
-            firstName: user.val().firstName,
-            lastName: user.val().lastName,
-            username: user.val().username ? user.val().username : null,
-            photoURL: user.val().photoURL
-              ? user.val().photoURL
-              : "/noPhoto.png",
-          });
-        }
-      }
-    });
-  });
-  return data;
+export const updateCurrentUser = (id: string, data: any) => {
+  return updateDoc(doc(db, `users`, id), { ...data });
 };
 
-export const getFollowedUsers = async (id: any) => {
-  const users: any = ref(db, `/users/`);
-  let data: any = [];
-  onValue(users, (snapshot) => {
-    data = [];
-    snapshot.forEach((user) => {
-      if (id !== user.key) {
-        const followedBy = user.val().followedBy ? user.val().followedBy : null;
-        if (followedBy) {
-          if (followedBy.indexOf(id) > -1) {
-            data.push({
-              key: user.key,
-              firstName: user.val().firstName,
-              lastName: user.val().lastName,
-              username: user.val().username ? user.val().username : null,
-              photoURL: user.val().photoURL
-                ? user.val().photoURL
-                : "/noPhoto.png",
-              followedBy: user.val().followedBy ? user.val().followedBy : null,
-            });
-          }
-        }
-      }
-    });
-  });
-  return data;
+export const unfollowUser = (id: string, field: string, removeId: string) => {
+  return updateDoc(doc(db, `users`, id), { [field]: arrayRemove(removeId) });
 };

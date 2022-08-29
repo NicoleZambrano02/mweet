@@ -1,11 +1,12 @@
-import { signOut } from "firebase/auth";
-import { authentication } from "../firebase/config";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import useFirebaseAuth from "../firebase/config/UseAuth";
 import { useRouter } from "next/router";
+import { signOut } from "firebase/auth";
+import { authentication, db } from "../firebase/config";
+import { doc, onSnapshot } from "firebase/firestore";
+import useFirebaseAuth from "../firebase/config/UseAuth";
+import FillUsersData from "./FillUsersData";
 import Routes from "../utils/Routes";
-import { getCurrentUser } from "../firebase/data/users";
 import { User } from "../types/User";
 import {
   HomeIcon,
@@ -14,11 +15,16 @@ import {
   ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
+type UserData = {
+  id: string;
+  data: any;
+};
+
 const SideNav = () => {
   const { user } = useFirebaseAuth();
   const uid = user?.uid;
   const router = useRouter();
-  const photo: any = user?.photoURL ? user?.photoURL : "/noPhoto.png";
+  const photo: string = user?.photoURL ? user?.photoURL : "/noPhoto.png";
 
   const [defaultValues, setDefaultValues] = useState<User>({
     uid: uid,
@@ -31,20 +37,13 @@ const SideNav = () => {
   });
 
   useEffect(() => {
-    const getUserData = async () => {
-      const userData = await getCurrentUser(uid);
-      setDefaultValues({
-        uid: uid,
-        firstName: userData?.firstName ? userData.firstName : "",
-        lastName: userData?.lastName ? userData.lastName : "",
-        email: userData?.email,
-        username: userData?.username ? userData.username : null,
-        photoURL: userData?.photoURL ? userData.photoURL : null,
-        following: userData?.following ? userData.following : null,
-      });
-    };
-    getUserData().catch(console.error);
-  }, [defaultValues]);
+    const document = doc(db, "users", `${uid}`);
+    const unsubscribe = onSnapshot(document, (data: UserData) => {
+      const filledData = FillUsersData(data);
+      setDefaultValues({ ...filledData });
+    });
+    return () => unsubscribe();
+  }, [uid]);
 
   const switchOption = async (value: string) => {
     switch (value) {
@@ -77,7 +76,7 @@ const SideNav = () => {
   };
 
   return (
-    <div className="w-15 h-full shadow-md bg-gray absolute">
+    <div className="w-15 h-screen shadow-md bg-gray fixed ">
       <p className="pt-20 px-20 text-24 text-title font-semibold">mweeter</p>
       <ul>
         <li className="relative mx-5">

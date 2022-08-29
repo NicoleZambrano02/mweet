@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getUsersToFollow, updateCurrentUser } from "../firebase/data/users";
+import { updateCurrentUser } from "../firebase/data/users";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
+import { db } from "../firebase/config";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 type UsersToFollowProps = {
   userData: any;
@@ -12,13 +14,46 @@ const UsersToFollow = ({ userData }: UsersToFollowProps) => {
   const [loading, setLoading]: any = useState([]);
 
   useEffect(() => {
-    const getUsers = async () => {
-      let usersToFollow: any;
-      usersToFollow = await getUsersToFollow(userData.uid);
-      setUsersData(usersToFollow);
-    };
-    getUsers().catch(console.error);
-  }, [userData.uid, usersData]);
+    const document = query(collection(db, "users"));
+    let data: any = [];
+    onSnapshot(document, (querySnapshot) => {
+      data = [];
+      querySnapshot.forEach((user: any) => {
+        if (userData.uid !== user.id) {
+          const followedBy = user.data().followedBy
+            ? user.data().followedBy
+            : null;
+          if (followedBy) {
+            if (followedBy.indexOf(userData.uid) === -1) {
+              data.push({
+                key: user.id,
+                firstName: user.data().firstName,
+                lastName: user.data().lastName,
+                username: user.data().username ? user.data().username : null,
+                photoURL: user.data().photoURL
+                  ? user.data().photoURL
+                  : "/noPhoto.png",
+                followedBy: user.data().followedBy
+                  ? user.data().followedBy
+                  : null,
+              });
+            }
+          } else {
+            data.push({
+              key: user.id,
+              firstName: user.data().firstName,
+              lastName: user.data().lastName,
+              username: user.data().username ? user.data().username : null,
+              photoURL: user.data().photoURL
+                ? user.data().photoURL
+                : "/noPhoto.png",
+            });
+          }
+        }
+      });
+      setUsersData(data);
+    });
+  }, [userData.uid]);
 
   const follow = async (id: string, followedBy: any) => {
     loading[id] = true;

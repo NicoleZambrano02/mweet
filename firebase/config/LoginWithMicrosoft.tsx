@@ -3,7 +3,7 @@ import { authentication } from "./index";
 import { useRouter } from "next/router";
 import React from "react";
 import Routes from "../../utils/Routes";
-import { setUsers } from "../data/users";
+import { getUserById, setUsers } from "../data/users";
 import Image from "next/image";
 
 const provider = new OAuthProvider("microsoft.com");
@@ -14,17 +14,18 @@ const LoginWithMicrosoft = () => {
     try {
       const result = await signInWithPopup(authentication, provider);
       await OAuthProvider.credentialFromResult(result);
-      console.log("dad", result);
       const userLogged = result.user;
-      const fullName = userLogged.displayName?.split(" ");
-      const userDataToSend = {
-        firstName: fullName![0],
-        lastName: fullName![1],
-        email: userLogged.email,
-        photoURL: userLogged?.photoURL ? userLogged?.photoURL : null,
-        emailVerified: userLogged?.emailVerified,
-      };
-      await setUsers(userLogged.uid, userDataToSend);
+      const userRegistered = await getUserById(userLogged.uid);
+      if (!userRegistered) {
+        const fullName = userLogged.displayName?.split(" ");
+        const userDataToSend = {
+          firstName: fullName![0],
+          lastName: fullName![1],
+          email: userLogged.email,
+          photoURL: userLogged?.photoURL ? userLogged?.photoURL : null,
+        };
+        await setUsers(userLogged.uid, userDataToSend);
+      }
       await router.push(Routes.INDEX);
     } catch (e) {
       console.log("error", e);

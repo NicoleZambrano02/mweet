@@ -1,19 +1,21 @@
-# Next.js
+# Mweeter in Next.js
 
-## Deploy your own
+Project done in Next.js using tailwindcss and firebase with functionalities like:
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+- User login (Google, Microsoft).
+- Unique profile for each user.
+- Publis mweeters.
+- Follow other users.
+- Display of mweets.
+- Unfollow users.
+- User logout.
 
 ## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
+Develop local running
 ```bash
-npx create-next-app --example next-app --example next-app
-# or
-yarn create next-app --example next-app
-# or
-pnpm create next-app --example next-app --example next-app
+yarn dev
 ```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+See the project in https://mweeter-two.vercel.app/

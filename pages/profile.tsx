@@ -27,7 +27,7 @@ const Profile = () => {
     const dataToSend = {
       firstName: values.firstName,
       lastName: values.lastName,
-      username: values.username ? `@${values.username}` : null,
+      username: values.username ? values.username : null,
     };
 
     try {
@@ -75,6 +75,7 @@ const Profile = () => {
             </label>
             <input
               type="text"
+              placeholder="@username"
               className="text-14 text-gray2 border-1 border-gray4 rounded-6 py-9 px-13"
               {...register("username")}
             />

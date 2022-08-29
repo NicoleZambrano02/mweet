@@ -19,8 +19,6 @@ C
 pages/following.tsx,a\9\a9a7d2dec18fb3fff76b7e5a058ffbfbf73c72db
 ?
 pages/login.tsx,b\9\b93fcc063d249bdf6f69fc21d2c1d92c294b3fa8
-A
-pages/profile.tsx,c\5\c5e8aefe2010037e28c231fbddbf8e0ac140be50
 L
 components/FillUsersData.tsx,a\2\a2f5f9fd242ff0818c3f7de1b893db0c27957849
 L
